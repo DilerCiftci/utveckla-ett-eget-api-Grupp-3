@@ -27,7 +27,7 @@ public class User {
     @NotEmpty
     private UUID apiKey;
 
-    
+
     public Long getId() {
         return id;
     }
@@ -59,7 +59,5 @@ public class User {
     public void setApiKey(UUID apiKey) {
         this.apiKey = apiKey;
     }
-
-    
 
 }

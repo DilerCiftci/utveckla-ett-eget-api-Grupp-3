@@ -1,4 +1,4 @@
-package org.Grupp3Api;
+package org.Grupp3Api.Api.Resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

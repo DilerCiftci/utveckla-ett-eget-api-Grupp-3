@@ -25,7 +25,7 @@ public class App {
     private String appName;
     
     @NotNull
-    private double appVersion;
+    private String appVersion;
 
     @Size(min = 0, max = 200)
     private String appDescription;
@@ -48,10 +48,10 @@ public class App {
     public void setAppName(String appName) {
         this.appName = appName;
     }
-    public double getAppVersion() {
+    public String getAppVersion() {
         return appVersion;
     }
-    public void setAppVersion(double appVersion) {
+    public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
     }
     public String getAppDescription() {

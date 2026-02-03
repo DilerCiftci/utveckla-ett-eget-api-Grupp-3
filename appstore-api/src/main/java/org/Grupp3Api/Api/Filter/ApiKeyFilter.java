@@ -1,9 +1,5 @@
 package org.Grupp3Api.Api.Filter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.Grupp3Api.Api.Services.UserService;
 
 import jakarta.annotation.Priority;

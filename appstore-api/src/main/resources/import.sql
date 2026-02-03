@@ -5,7 +5,7 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-insert into t_USER (userName, userPassword, apiKey) values ('Jonte', 'Andersson', '269343d1-f071-43ea-a666-bfbf36fee3a2');
+insert into t_USER (id, username, password, apiKey) values ('16510b28-4753-4977-b131-68a632bf64b1','admin', 'Andersson', '269343d1-f071-43ea-a666-bfbf36fee3a2');
 
 ALTER TABLE t_APP
 ALTER COLUMN appVersion TYPE TEXT;

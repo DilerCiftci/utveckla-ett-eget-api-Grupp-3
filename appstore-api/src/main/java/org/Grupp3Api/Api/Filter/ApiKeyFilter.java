@@ -28,6 +28,12 @@ public class ApiKeyFilter implements ContainerRequestFilter {
 
         String apiKey = requestContext.getHeaderString(API_KEY_HEADER);
 
+        String path = requestContext.getUriInfo().getPath();
+
+        if(path.startsWith("/public")){
+            return;
+        }
+
         if (apiKey == null || !userService.getApiKeyList().contains(apiKey)) {
             requestContext.abortWith(
                     Response.status(Response.Status.UNAUTHORIZED)

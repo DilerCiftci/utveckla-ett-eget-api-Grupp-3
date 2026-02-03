@@ -4,6 +4,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.Grupp3Api.Api.Entity.App;
+import org.Grupp3Api.Api.Entity.AppDTO;
+import org.Grupp3Api.Api.Services.AppService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
@@ -82,10 +84,10 @@ public class AppResource {
 
     @PATCH
     @Path("/{id}/version")
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response updateAppVersion(@PathParam("id") Long id, String newVersion ) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateAppVersion(@PathParam("id") Long id, AppDTO appDTO) {
         App existingApp = appService.find(id);
-        existingApp.setAppVersion(newVersion);
+        existingApp.setAppVersion(appDTO.getAppVersion());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
 }

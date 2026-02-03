@@ -27,6 +27,12 @@ public class UserService {
         return user;
     }
     
+    @Transactional(Transactional.TxType.REQUIRED)
+    public User getUserByUsername(String username){
+
+        return em.find(User.class, username);
+    }
+
         @Transactional(Transactional.TxType.REQUIRED)
     public User getUserById(Long id){
 

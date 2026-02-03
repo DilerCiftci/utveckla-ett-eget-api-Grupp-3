@@ -5,6 +5,8 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
+insert into t_USER (userName, userPassword, apiKey) values ('Jonte', 'Andersson', '269343d1-f071-43ea-a666-bfbf36fee3a2');
+
 ALTER TABLE t_APP
 ALTER COLUMN appVersion TYPE TEXT;
 
@@ -28,3 +30,5 @@ insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) v
 insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) values ('Cardify', '6.0.3', 'https://robohash.org/recusandaequamut.png?size=50x50&set=set1', 'Photobug', '1/14/2026');
 insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) values ('Zontrax', '7.1', 'https://robohash.org/voluptasutaperiam.png?size=50x50&set=set1', 'Mudo', '6/30/2025');
 insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) values ('It', '0.2.8', 'https://robohash.org/estiddoloribus.png?size=50x50&set=set1', 'Avavee', '10/18/2025');
+
+

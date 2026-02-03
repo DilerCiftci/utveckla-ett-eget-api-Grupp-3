@@ -28,7 +28,7 @@ public class UserService {
         return user;
     }
     
-@Transactional(Transactional.TxType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public User getUserByUsername(String username){
 
         try {
@@ -39,17 +39,16 @@ public class UserService {
         }
     }
 
-        @Transactional(Transactional.TxType.REQUIRED)
-    public User getUserById(Long id){
+    @Transactional(Transactional.TxType.REQUIRED)
+    public User getUserById(String id){
 
         return em.find(User.class, id);
     }
 
-        @Transactional(Transactional.TxType.REQUIRED)
-    public User generateNewApiKey(Long id){
-
-        User user = em.find(User.class, id);
+    @Transactional(Transactional.TxType.REQUIRED)
+    public User generateNewApiKey(User user){
         user.setApiKey(UUID.randomUUID());
+        em.merge(user);
         return user;
     }
 

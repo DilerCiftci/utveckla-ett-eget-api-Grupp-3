@@ -91,6 +91,24 @@ public class AppResource {
         appService.update(existingApp);
         return Response.ok(existingApp).build();
 }
+    @PATCH
+    @Path("/{id}/description")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateAppDescription(@PathParam("id") Long id, AppDTO appDTO) {
+        App existingApp = appService.find(id);
+        existingApp.setAppDescription(appDTO.getAppDescription());
+        appService.update(existingApp);
+        return Response.ok(existingApp).build();
+}
+    @PATCH
+    @Path("/{id}/image")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateAppImage(@PathParam("id") Long id, AppDTO appDTO) {
+        App existingApp = appService.find(id);
+        existingApp.setAppImage(appDTO.getAppImage());
+        appService.update(existingApp);
+        return Response.ok(existingApp).build();
+}
 
     
 }

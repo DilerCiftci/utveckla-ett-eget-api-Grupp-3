@@ -1,5 +1,6 @@
 package org.Grupp3Api.Api.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +28,15 @@ public class UserService {
         return user;
     }
     
-    @Transactional(Transactional.TxType.REQUIRED)
+@Transactional(Transactional.TxType.REQUIRED)
     public User getUserByUsername(String username){
 
-        return em.find(User.class, username);
+        try {
+            Object user = em.createQuery("SELECT u FROM User u where u.username =:username").setParameter("username", username).getSingleResult();
+            return (User) user;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
         @Transactional(Transactional.TxType.REQUIRED)
@@ -52,6 +58,20 @@ public class UserService {
         List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
 
         return users;
+    }
+
+    public List<String> getApiKeyList(){
+
+
+        List<String> apiKeyList = new ArrayList<>();
+
+        List<User> users = findAll();
+
+        for (User user : users) {
+           apiKeyList.add(user.getApiKey().toString());
+        }
+
+        return apiKeyList;
     }
 
 }

@@ -17,6 +17,7 @@
         userPassword varchar(32),
         primary key (id)
     );
+insert into t_USER (userName, userPassword, apiKey) values ('Jonte', 'Andersson', '269343d1-f071-43ea-a666-bfbf36fee3a2');
 ALTER TABLE t_APP ALTER COLUMN appVersion TYPE TEXT;
 insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) values ('Trippledex', '3.8.0', 'https://robohash.org/laborereruma.png?size=50x50&set=set1', 'Yombu', '11/5/2025');
 insert into t_APP (app_name, appVersion, appImage, appPublisher, creationDate) values ('Zontrax', '8.85', 'https://robohash.org/magniexbeatae.png?size=50x50&set=set1', 'Linktype', '11/18/2025');

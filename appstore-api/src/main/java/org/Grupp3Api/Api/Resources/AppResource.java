@@ -55,6 +55,11 @@ public class AppResource {
     @Path("/{id}")
     public Response getAppsById(@PathParam("id") @Min(1) Long id){
         App app = appService.find(id);
+        if (app == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("App not found")
+                    .build();
+    }
         return Response.ok(app).build();
     }
 
@@ -85,8 +90,19 @@ public class AppResource {
     @PATCH
     @Path("/{id}/version")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateAppVersion(@PathParam("id") Long id, AppDTO appDTO) {
+    public Response updateAppVersion(@PathParam("id") Long id, @Valid AppDTO appDTO) {
         App existingApp = appService.find(id);
+
+        if (existingApp == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("App with such id not found")
+                    .build();
+        }
+        if (appDTO == null || appDTO.getAppVersion() == null || appDTO.getAppVersion().isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("appVersion can't be empty")
+                    .build();
+    }
         existingApp.setAppVersion(appDTO.getAppVersion());
         appService.update(existingApp);
         return Response.ok(existingApp).build();

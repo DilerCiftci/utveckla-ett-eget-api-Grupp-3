@@ -90,7 +90,7 @@ public class AppResource {
     @PATCH
     @Path("/{id}/version")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateAppVersion(@PathParam("id") Long id, @Valid AppDTO appDTO) {
+    public Response updateAppVersion(@PathParam("id") Long id, AppDTO appDTO) {
         App existingApp = appService.find(id);
 
         if (existingApp == null) {
@@ -100,9 +100,9 @@ public class AppResource {
         }
         if (appDTO == null || appDTO.getAppVersion() == null || appDTO.getAppVersion().isBlank()) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("appVersion can't be empty")
+                    .entity("App version can't be empty")
                     .build();
-    }
+        }
         existingApp.setAppVersion(appDTO.getAppVersion());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
@@ -112,6 +112,16 @@ public class AppResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateAppDescription(@PathParam("id") Long id, AppDTO appDTO) {
         App existingApp = appService.find(id);
+        if (existingApp == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("App with such id not found")
+                    .build();
+        }
+        if (appDTO == null || appDTO.getAppDescription() == null || appDTO.getAppDescription().isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("App description can't be empty")
+                    .build();
+        }
         existingApp.setAppDescription(appDTO.getAppDescription());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
@@ -121,6 +131,16 @@ public class AppResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateAppImage(@PathParam("id") Long id, AppDTO appDTO) {
         App existingApp = appService.find(id);
+        if (existingApp == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("App with such id not found")
+                    .build();
+        }
+        if (appDTO == null || appDTO.getAppImage() == null || appDTO.getAppImage().isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("App image can't be empty")
+                    .build();
+        }
         existingApp.setAppImage(appDTO.getAppImage());
         appService.update(existingApp);
         return Response.ok(existingApp).build();

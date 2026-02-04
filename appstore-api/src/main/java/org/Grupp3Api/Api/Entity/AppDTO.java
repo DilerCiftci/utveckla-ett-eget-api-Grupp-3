@@ -1,10 +1,8 @@
 package org.Grupp3Api.Api.Entity;
 
-import jakarta.validation.constraints.NotBlank;
 
 public class AppDTO {
     
-    @NotBlank(message = "App version can't be empty")
     private String appVersion;
     private String appDescription;
     private String appImage;

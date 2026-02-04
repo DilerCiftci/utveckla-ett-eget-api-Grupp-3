@@ -25,7 +25,7 @@
   http://localhost:8080/q/dev-ui/quarkus-smallrye-openapi/swagger-ui
 
 **Validations & Rules:**
-- @NotBlank and @NotEmpty fields ensure no empty values are stored
+- @NotEmpty fields ensure no empty values are stored
 - PATCH endpoints validate non-null, non-empty updates
 - Returns `404 Not Found` if an app doesn’t exist
 - Returns `400 Bad Request` for invalid input

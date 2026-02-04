@@ -19,7 +19,10 @@
 - **PATCH /api/app/{id}/version**: Update app version  
 - **PATCH /api/app/{id}/description**: Update app description  
 - **PATCH /api/app/{id}/image**: Update app image  
-- **DELETE /api/app/{id}**: Delete an app  
+- **DELETE /api/app/{id}**: Delete an app
+
+ ### For more info please check the docs at:
+  http://localhost:8080/q/dev-ui/quarkus-smallrye-openapi/swagger-ui
 
 **Validations & Rules:**
 - @NotBlank and @NotEmpty fields ensure no empty values are stored
@@ -32,8 +35,53 @@
 - **POST /public/user/login**: Login user and retrieve API key  
 - **GET /public/user/generate**: Generate a new API key  
 
-### API Key Authentication
-- Protected endpoints require `X-API-KEY` header with a valid key  
+### Access api using Apikey
+<ul>
+ <li>
+  Endpoint starting with "/public" is public and doesn't require a apikey to access
+ </li>
+ <li>
+  Every other endpoint does require a apikey to access
+ </li>
+</ul>
+
+### How to access the api using apikeys?
+
+To access the api you need to have a apikey, with the project comes a starter key: 
+
+```shell script
+269343d1-f071-43ea-a666-bfbf36fee3a2
+```
+
+### Access thru postman
+<ul>
+        <li>
+                Copy the key.
+        </li>
+        <li>
+                Go to Headers.
+        </li>
+        <li>
+                Set Key type to "x-api-key".
+        </li>
+        <li>
+                Set Value to your key/starter key.
+        </li>
+</ul>
+
+### Access by fetch
+
+To access by fetch you need to set the header in your javascript.
+
+Here is an example:
+
+```
+const response = await fetch("localhost:8080/api/app", {
+  method: "GET",
+  headers: {
+    "x-api-key": "269343d1-f071-43ea-a666-bfbf36fee3a2",
+  }
+```
 
 ---
 ## ⚙️ Tech Used

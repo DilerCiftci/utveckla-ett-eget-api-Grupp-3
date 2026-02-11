@@ -1,4 +1,5 @@
 package org.Grupp3Api.Api.Resources;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -23,29 +24,21 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 @Path("/api/app")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AppResource {
 
-
-    @Inject 
+    @Inject
     AppService appService;
 
     @GET
     @Operation(summary = "Show all Apps", description = "Gets and show all the apps that exist in the database")
-    @APIResponse(
-        responseCode = "200",
-        description = "All apps"
-    )
-    @APIResponse(
-        responseCode = "204",
-        description = "There are no apps"
-    )
+    @APIResponse(responseCode = "200", description = "All apps")
+    @APIResponse(responseCode = "204", description = "There are no apps")
     public Response getApps() {
         List<App> apps = appService.findAll();
-        if(apps.isEmpty()) {
+        if (apps.isEmpty()) {
             return Response.noContent().build();
         }
         return Response.ok(apps).build();
@@ -53,26 +46,39 @@ public class AppResource {
 
     @GET
     @Path("/{id}")
-    public Response getAppsById(@PathParam("id") @Min(1) Long id){
+    public Response getAppsById(@PathParam("id") @Min(1) Long id) {
         App app = appService.find(id);
         if (app == null) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("App not found")
                     .build();
-    }
+        }
         return Response.ok(app).build();
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/count")
-    public Response countApps(){
+    public Response countApps() {
         Long count = appService.countAll();
         return Response.ok(count).build();
     }
 
+    @GET
+    @Operation(summary = "Get random app", description = "Returns a random app from the database")
+    @APIResponse(responseCode = "200", description = "Random app")
+    @APIResponse(responseCode = "204", description = "No apps available")
+    @Path("/random")
+    public Response getRandomApp() {
+        App app = appService.findRandom();
+        if (app == null) {
+            return Response.noContent().build();
+        }
+        return Response.ok(app).build();
+    }
+
     @POST
-    public Response createApp(@Valid App app) throws URISyntaxException{
+    public Response createApp(@Valid App app) throws URISyntaxException {
         app = appService.create(app);
         URI createdUri = new URI(app.getId().toString());
         return Response.created(createdUri).entity(app).build();
@@ -85,7 +91,6 @@ public class AppResource {
         appService.delete(id);
         return Response.noContent().build();
     }
-
 
     @PATCH
     @Path("/{id}/version")
@@ -106,7 +111,8 @@ public class AppResource {
         existingApp.setAppVersion(appDTO.getAppVersion());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
-}
+    }
+
     @PATCH
     @Path("/{id}/description")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -125,7 +131,8 @@ public class AppResource {
         existingApp.setAppDescription(appDTO.getAppDescription());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
-}
+    }
+
     @PATCH
     @Path("/{id}/image")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -144,8 +151,6 @@ public class AppResource {
         existingApp.setAppImage(appDTO.getAppImage());
         appService.update(existingApp);
         return Response.ok(existingApp).build();
-}
+    }
 
-    
 }
-

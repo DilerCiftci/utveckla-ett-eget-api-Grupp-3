@@ -1,5 +1,6 @@
 package org.Grupp3Api.Api.Services;
 
+import java.util.Collections;
 import java.util.List;
 import org.Grupp3Api.Api.Entity.App;
 
@@ -11,13 +12,22 @@ import jakarta.transaction.Transactional;
 @Transactional(Transactional.TxType.SUPPORTS)
 @ApplicationScoped
 public class AppService {
-    
+
     @Inject
     EntityManager em;
 
-     public List<App> findAll() {
+    public List<App> findAll() {
         List<App> app = em.createQuery("SELECT a FROM App a", App.class).getResultList();
         return app;
+    }
+
+    public App findRandom() {
+        List<App> apps = findAll();
+        if (apps.isEmpty()) {
+            return null;
+        }
+        Collections.shuffle(apps);
+        return apps.get(0);
     }
 
     public App find(Long id) {

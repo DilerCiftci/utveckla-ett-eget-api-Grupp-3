@@ -50,7 +50,7 @@ public class UserResource {
             return Response.ok(apiKeyDTO, MediaType.APPLICATION_JSON).cookie(newCookie).build();
         }
 
-        return Response.status(403, "Failed to either find user or user password did not match").build();
+        return Response.status(403).entity("Failed to either find user or user password did not match").build();
     }
 
     @POST
@@ -74,16 +74,21 @@ public class UserResource {
     @Operation(summary = "Generate API-KEY! :D", description = "Generate a new api key")
     public Response getKey (@CookieParam("TOKEN") String token) {
         System.out.println(token);
-        User user = userService.getUserById(token);
+        try {
+            User user = userService.getUserById(token);
+            if (user != null) {
+                UUID apiKey = userService.generateNewApiKey(user).getApiKey();
+                ApiKeyDTO apiKeyDTO = new ApiKeyDTO();
+                apiKeyDTO.setAPI_KEY(apiKey);
+                return Response.ok(apiKeyDTO).build();
+            }
 
-        if (user != null) {
-            UUID apiKey = userService.generateNewApiKey(user).getApiKey();
-            ApiKeyDTO apiKeyDTO = new ApiKeyDTO();
-            apiKeyDTO.setAPI_KEY(apiKey);
-            return Response.ok(apiKeyDTO).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(403).entity("Token is not working").build();
         }
 
-        return Response.status(403, "Failed to either find user or user password did not match").build();
+        System.out.println(Response.status(null));
+        return Response.status(500).entity("Something went wrong").build();
     }
     
 }

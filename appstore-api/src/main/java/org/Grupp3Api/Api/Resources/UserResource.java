@@ -50,7 +50,7 @@ public class UserResource {
             return Response.ok(apiKeyDTO, MediaType.APPLICATION_JSON).cookie(newCookie).build();
         }
 
-        return Response.status(403, "Failed to either find user or user password did not match").build();
+        return Response.status(403).entity("Failed to either find user or user password did not match").build();
     }
 
     @POST
@@ -84,11 +84,11 @@ public class UserResource {
             }
 
         } catch (IllegalArgumentException e) {
-            return Response.status(403, "Token is not working").entity("Token is not working 2").build();
+            return Response.status(403).entity("Token is not working").build();
         }
 
         System.out.println(Response.status(null));
-        return Response.status(500, "Failed to either find user or user password did not match").build();
+        return Response.status(500).entity("Something went wrong").build();
     }
     
 }
